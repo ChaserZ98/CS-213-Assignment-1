@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -17,7 +18,7 @@
                 <Button layoutX="349.0" layoutY="357.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Song Delete" />
                 <Button layoutX="349.0" layoutY="397.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Song edit" />
                 <Button layoutX="19.0" layoutY="26.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="112.0" text="Song list display" />
-                <TextField layoutX="19.0" layoutY="62.0" prefHeight="206.0" prefWidth="456.0" />
+            <ListView layoutX="14.0" layoutY="59.0" prefHeight="200.0" prefWidth="470.0" />
             </children>
         </AnchorPane>
     </children>
