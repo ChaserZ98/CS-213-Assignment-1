@@ -1,4 +1,4 @@
-package songlib.resource;
+package songlib.model;
 
 public class Song {
     String songName;
@@ -20,12 +20,34 @@ public class Song {
     public Song(String songName, String artistName){
         this(songName, artistName, "", -1);
     }
-    public String getAlbum(){
-        return album;
+    public String getSongName(){
+        return this.songName;
     }
+    public void setSongName(String songName){
+        this.songName = songName;
+    }
+    public String getArtistName(){
+        return this.artistName;
+    }
+    public void setArtistName(String artistName){
+        this.artistName = artistName;
+    }
+    public String getAlbum(){
+        return this.album;
+    }
+
+    public void setAlbum(String album) {
+        this.album = album;
+    }
+
     public String getYear(){
         return this.year==-1?"":String.valueOf(this.year);
     }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
     public String toString(){
         return this.songName + "-" + this.artistName;
     }
