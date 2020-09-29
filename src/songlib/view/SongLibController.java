@@ -33,11 +33,6 @@ public class SongLibController {
 
     public void start(Stage mainStage){
         obsList = FXCollections.observableArrayList();
-        for(int i = 0; i < 10; i++){
-            obsList.add(new Song("song" + String.valueOf(i), "singer" + String.valueOf(i)));
-        }
-        obsList.get(0).setAlbum("first");
-        obsList.get(1).setYear(1999);
         listView.setCellFactory(new Callback<ListView<Song>, ListCell<Song>>(){
             @Override
             public ListCell<Song> call(ListView<Song> p){
@@ -94,22 +89,30 @@ public class SongLibController {
         int year = yearTextField.getText().length()==0? -1:Integer.parseInt(yearTextField.getText());
         Song song = new Song(songName, artistName, album, year);
         String songDetails = "Song Name: \t" + song.getSongName() + "\nArtist Name: \t" + song.getArtistName() + "\nAlbum: \t" + song.getAlbum() + "\nYear: \t" + song.getYear();
-        if(obsList.contains(song)){
+        if(songNameTextField.getLength()==0 || artistNameTextField.getLength()==0){
             Alert alert = new Alert(Alert.AlertType.ERROR, songDetails, ButtonType.OK);
             alert.setTitle("Error!");
-            alert.setHeaderText("The song already exists!");
-            alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+            alert.setHeaderText("Must have both song name and artist name!");
+            alert.initOwner(((Node) e.getSource()).getScene().getWindow());
             alert.showAndWait();
         }
-        else{
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails, ButtonType.YES, ButtonType.CANCEL);
-            alert.setTitle("Add");
-            alert.setHeaderText("Are you sure you want to add this song?");
-            alert.initOwner(((Node)e.getSource()).getScene().getWindow());
-            Optional<ButtonType> option =  alert.showAndWait();
-            if(option.get() == ButtonType.YES){
-                obsList.add(song);
-                Collections.sort(obsList);
+        else {
+            if (obsList.contains(song)) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, songDetails, ButtonType.OK);
+                alert.setTitle("Error!");
+                alert.setHeaderText("The song already exists!");
+                alert.initOwner(((Node) e.getSource()).getScene().getWindow());
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails, ButtonType.YES, ButtonType.CANCEL);
+                alert.setTitle("Add");
+                alert.setHeaderText("Are you sure you want to add this song?");
+                alert.initOwner(((Node) e.getSource()).getScene().getWindow());
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get() == ButtonType.YES) {
+                    obsList.add(song);
+                    Collections.sort(obsList);
+                }
             }
         }
     }
