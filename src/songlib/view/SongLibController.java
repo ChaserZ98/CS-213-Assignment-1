@@ -103,7 +103,7 @@ public class SongLibController {
         }
         else{
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails, ButtonType.YES, ButtonType.CANCEL);
-            alert.setTitle("Delete");
+            alert.setTitle("Add");
             alert.setHeaderText("Are you sure you want to add this song?");
             alert.initOwner(((Node)e.getSource()).getScene().getWindow());
             Optional<ButtonType> option =  alert.showAndWait();
@@ -114,28 +114,48 @@ public class SongLibController {
         }
     }
     public void editSong(ActionEvent e){
-        // incomplete
         int index = listView.getSelectionModel().getSelectedIndex();
         if(index >= 0){
             Song song = obsList.get(index);
-            String songDetails = "Song Name: \t" + song.getSongName() + "\nArtist Name: \t" + song.getArtistName() + "\nAlbum: \t" + song.getAlbum() + "\nYear: \t" + song.getYear();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails, ButtonType.YES, ButtonType.CANCEL);
-            alert.setTitle("Delete");
-            alert.setHeaderText("Are you sure you want to save the edition?");
-            alert.initOwner(((Node)e.getSource()).getScene().getWindow());
-            Optional<ButtonType> option =  alert.showAndWait();
-            if(option.get() == ButtonType.YES){
-                obsList.remove(index);
-                if(index < obsList.size()){
-                    listView.getSelectionModel().clearSelection(index);
-                    listView.getSelectionModel().select(index);
-                }
-                else if(index - 1 >=0){
-                    listView.getSelectionModel().select(index - 1);
+            String songDetails = "Origin:\n\tSong Name: \t" + song.getSongName() + "\n\tArtist Name: \t" + song.getArtistName() + "\n\tAlbum: \t" + song.getAlbum() + "\n\tYear: \t" + song.getYear();
+            String songName = songNameTextField.getText();
+            String artistName = artistNameTextField.getText();
+            String album = albumTextField.getText();
+            int year = yearTextField.getText().length()==0? -1:Integer.parseInt(yearTextField.getText());
+            String editedSongDetails = "Revision:\n\tSong Name: \t" + songName + "\n\tArtist Name: \t" + artistName + "\n\tAlbum: \t" + album + "\n\tYear: \t" + (year>0?String.valueOf(year):"");
+            if(!(song.getSongName().compareToIgnoreCase(songName)==0 && song.getArtistName().compareToIgnoreCase(artistName)==0 && song.getAlbum().compareToIgnoreCase(album)==0 && song.getYear().compareToIgnoreCase(year>0?String.valueOf(year):"")==0)){
+                if(obsList.contains(new Song(songName, artistName, album, year))){
+                    for(int i = 0; i < obsList.size(); i++){
+                        if(obsList.get(i).equals(new Song(songName, artistName, album, year))){
+                            Song existedSong = obsList.get(i);
+                            songDetails = "Existed Song:\n\tSong Name: \t" + existedSong.getSongName() + "\n\tArtist Name: \t" + existedSong.getArtistName() + "\n\tAlbum: \t" + existedSong.getAlbum() + "\n\tYear: \t" + existedSong.getYear();
+                        }
+                    }
+                    Alert alert = new Alert(Alert.AlertType.ERROR, songDetails + "\n" + editedSongDetails, ButtonType.OK);
+                    alert.setTitle("Error!");
+                    alert.setHeaderText("The song already exists!");
+                    alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+                    alert.showAndWait();
                 }
                 else{
-                    listView.getSelectionModel().clearSelection(index);
+                    song = new Song(songName, artistName, album, year);
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails + "\n" + editedSongDetails, ButtonType.YES, ButtonType.CANCEL);
+                    alert.setTitle("Edit");
+                    alert.setHeaderText("Are you sure you want to save the change?");
+                    alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+                    Optional<ButtonType> option =  alert.showAndWait();
+                    if(option.get() == ButtonType.YES){
+                        obsList.set(index, song);
+                        Collections.sort(obsList);
+                    }
                 }
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.ERROR, "You don't change anything.", ButtonType.OK);
+                alert.setTitle("Error!");
+                alert.setHeaderText("Illegal Manipulation!");
+                alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+                alert.showAndWait();
             }
         }
         else{
