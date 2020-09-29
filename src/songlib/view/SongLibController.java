@@ -88,10 +88,63 @@ public class SongLibController {
     }
 
     public void addSong(ActionEvent e){
-
+        String songName = songNameTextField.getText();
+        String artistName = artistNameTextField.getText();
+        String album = albumTextField.getText();
+        int year = yearTextField.getText().length()==0? -1:Integer.parseInt(yearTextField.getText());
+        Song song = new Song(songName, artistName, album, year);
+        String songDetails = "Song Name: \t" + song.getSongName() + "\nArtist Name: \t" + song.getArtistName() + "\nAlbum: \t" + song.getAlbum() + "\nYear: \t" + song.getYear();
+        if(obsList.contains(song)){
+            Alert alert = new Alert(Alert.AlertType.ERROR, songDetails, ButtonType.OK);
+            alert.setTitle("Error!");
+            alert.setHeaderText("The song already exists!");
+            alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+            alert.showAndWait();
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails, ButtonType.YES, ButtonType.CANCEL);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Are you sure you want to add this song?");
+            alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+            Optional<ButtonType> option =  alert.showAndWait();
+            if(option.get() == ButtonType.YES){
+                obsList.add(song);
+                Collections.sort(obsList);
+            }
+        }
     }
     public void editSong(ActionEvent e){
-
+        // incomplete
+        int index = listView.getSelectionModel().getSelectedIndex();
+        if(index >= 0){
+            Song song = obsList.get(index);
+            String songDetails = "Song Name: \t" + song.getSongName() + "\nArtist Name: \t" + song.getArtistName() + "\nAlbum: \t" + song.getAlbum() + "\nYear: \t" + song.getYear();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails, ButtonType.YES, ButtonType.CANCEL);
+            alert.setTitle("Delete");
+            alert.setHeaderText("Are you sure you want to save the edition?");
+            alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+            Optional<ButtonType> option =  alert.showAndWait();
+            if(option.get() == ButtonType.YES){
+                obsList.remove(index);
+                if(index < obsList.size()){
+                    listView.getSelectionModel().clearSelection(index);
+                    listView.getSelectionModel().select(index);
+                }
+                else if(index - 1 >=0){
+                    listView.getSelectionModel().select(index - 1);
+                }
+                else{
+                    listView.getSelectionModel().clearSelection(index);
+                }
+            }
+        }
+        else{
+            Alert alert = new Alert(Alert.AlertType.ERROR, "There is no song selected.", ButtonType.OK);
+            alert.setTitle("Error!");
+            alert.setHeaderText("Illegal Manipulation!");
+            alert.initOwner(((Node)e.getSource()).getScene().getWindow());
+            alert.showAndWait();
+        }
     }
     public void deleteSong(ActionEvent e){
         int index = listView.getSelectionModel().getSelectedIndex();

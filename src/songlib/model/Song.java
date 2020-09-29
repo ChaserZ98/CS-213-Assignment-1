@@ -3,6 +3,8 @@ package songlib.model;
 //import java.util.ArrayList;
 //import java.util.Collections;
 
+import java.util.ArrayList;
+
 public class Song implements Comparable<Song>{
     String songName;
     String artistName;
@@ -55,6 +57,21 @@ public class Song implements Comparable<Song>{
     public String toString(){
         return this.songName + "-" + this.artistName;
     }
+    @Override
+    public boolean equals(Object newSong){
+        if(newSong instanceof Song){
+            if(this.compareTo((Song)newSong)==0){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
+    }
 
     @Override
     public int compareTo(Song newSong){
@@ -64,5 +81,15 @@ public class Song implements Comparable<Song>{
         else{
             return this.songName.compareToIgnoreCase(newSong.getSongName());
         }
+    }
+    public static void main(String[] args){
+        Song s1 = new Song("1", "1");
+        Song s2 = new Song("1", "1", "2", 1992);
+        ArrayList<Song> list = new ArrayList<Song>();
+        list.add(s1);
+        System.out.println(list.contains(s2));
+//        System.out.println(s1.equ);
+//        list.add(s2);
+
     }
 }
