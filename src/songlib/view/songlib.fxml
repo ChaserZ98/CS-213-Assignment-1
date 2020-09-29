@@ -11,27 +11,34 @@
 
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="songlib.view.SongLibController">
     <children>
-        <AnchorPane prefHeight="450.0" prefWidth="498.0">
+        <AnchorPane prefHeight="500.0" prefWidth="500.0">
             <children>
-                <Text layoutX="14.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song List" wrappingWidth="100" />
-                <ListView fx:id="listView" layoutX="14.0" layoutY="59.0" prefHeight="200.0" prefWidth="470.0" />
+                <Text fx:id="title" layoutX="20.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song List" style="-fx-font-size: 14pt" wrappingWidth="100" />
+                <ListView fx:id="listView" layoutX="20.0" layoutY="60.0" prefHeight="200.0" prefWidth="200" />
 
-                <Text layoutX="20.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song Name:" />
-                <TextField fx:id="songNameField" layoutX="100.0" layoutY="274.0" prefHeight="26.0" prefWidth="200.0" />
+                <Text layoutX="240.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details of Selected Song:" style="-fx-font-size: 12pt" wrappingWidth="200" />
+                <Text layoutX="240.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song Name:" />
+                <Text fx:id="songNameText" layoutX="360.0" layoutY="80.0" wrappingWidth="100" />
+                <Text layoutX="240.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name:" />
+                <Text fx:id="artistNameText" layoutX="360.0" layoutY="135.0" wrappingWidth="100" />
+                <Text layoutX="240.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album:" />
+                <Text fx:id="albumText" layoutX="360.0" layoutY="190.0" wrappingWidth="100" />
+                <Text layoutX="240.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year:" />
+                <Text fx:id="yearText" layoutX="360.0" layoutY="245.0" wrappingWidth="100" />
 
-                <Text layoutX="22.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name:" />
-                <TextField fx:id="artistNameField" layoutX="100.0" layoutY="316.0" prefHeight="26.0" prefWidth="200.0" />
+                <Text layoutX="20.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editable Fields:" style="-fx-font-size: 12pt" wrappingWidth="200" />
+                <Text layoutX="20.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Song Name:" wrappingWidth="100" />
+                <TextField fx:id="songNameTextField" layoutX="120.0" layoutY="315.0" promptText="(Required)" minWidth="200" />
+                <Text layoutX="20.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artist Name:" wrappingWidth="100" />
+                <TextField fx:id="artistNameTextField" layoutX="120.0" layoutY="355.0" promptText="(Required)" minWidth="200" />
+                <Text layoutX="20.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album:" wrappingWidth="100" />
+                <TextField fx:id="albumTextField" layoutX="120.0" layoutY="395.0" promptText="(Optional)" minWidth="200" />
+                <Text layoutX="20.0" layoutY="450.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year:" wrappingWidth="100" />
+                <TextField fx:id="yearTextField" layoutX="120.0" layoutY="435.0" promptText="(Optional)" minWidth="200" />
 
-                <Text layoutX="20.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Album:" wrappingWidth="100" />
-                <TextField fx:id="albumField" layoutX="100.0" layoutY="357.0" prefHeight="26.0" prefWidth="200.0" />
-
-                <Text layoutX="22.0" layoutY="415.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year:" wrappingWidth="37.939453125" />
-                <TextField fx:id="yearField" layoutX="100.0" layoutY="397.0" prefHeight="26.0" prefWidth="200.0" />
-
-
-                <Button layoutX="340.0" layoutY="274.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Song Add" />
-                <Button layoutX="340.0" layoutY="316.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Song Delete" />
-                <Button layoutX="340.0" layoutY="357.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="98.0" text="Song edit" />
+                <Button fx:id="addButton" layoutX="355.0" layoutY="315.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Add" onAction="#addSong"/>
+                <Button fx:id="deleteButton" layoutX="355.0" layoutY="367.5" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Delete" onAction="#deleteSong"/>
+                <Button fx:id="editButton" layoutX="355.0" layoutY="420.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Edit" onAction="#editSong"/>
             </children>
         </AnchorPane>
     </children>

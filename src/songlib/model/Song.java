@@ -1,6 +1,9 @@
 package songlib.model;
 
-public class Song {
+//import java.util.ArrayList;
+//import java.util.Collections;
+
+public class Song implements Comparable<Song>{
     String songName;
     String artistName;
     String album;
@@ -48,7 +51,18 @@ public class Song {
         this.year = year;
     }
 
+    @Override
     public String toString(){
         return this.songName + "-" + this.artistName;
+    }
+
+    @Override
+    public int compareTo(Song newSong){
+        if(this.songName.compareToIgnoreCase(newSong.getSongName()) == 0){
+            return this.artistName.compareToIgnoreCase(newSong.getArtistName());
+        }
+        else{
+            return this.songName.compareToIgnoreCase(newSong.getSongName());
+        }
     }
 }
