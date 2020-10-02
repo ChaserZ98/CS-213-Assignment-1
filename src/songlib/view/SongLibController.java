@@ -149,7 +149,7 @@ public class SongLibController {
         String album = albumTextField.getText();
         int year = convertToYearInt(yearTextField.getText());
         Song song = new Song(songName, artistName, album, year);
-        String songDetails = "Song Name: \t" + song.getSongName() + "\nArtist Name: \t" + song.getArtistName() + "\nAlbum: \t" + song.getAlbum() + "\nYear: \t" + yearTextField.getText();
+        String songDetails = "Entered Song:\n\tSong Name: \t" + song.getSongName() + "\n\tArtist Name: \t" + song.getArtistName() + "\n\tAlbum: \t" + song.getAlbum() + "\n\tYear: \t" + yearTextField.getText();
         //If song name or artist name is empty
         if(songNameTextField.getLength()==0 || artistNameTextField.getLength()==0){
             Alert alert = new Alert(Alert.AlertType.ERROR, songDetails, ButtonType.OK);
@@ -161,12 +161,16 @@ public class SongLibController {
         else {
             //If the song already exists
             if (obsList.contains(song)) {
-                Alert alert = new Alert(Alert.AlertType.ERROR, songDetails, ButtonType.OK);
+                int index = obsList.indexOf(song);
+                Song existedSong = obsList.get(index);
+                String existedSongDetails = "Existed Song:\n\tSong Name: \t" + existedSong.getSongName() + "\n\tArtist Name: \t" + existedSong.getArtistName() + "\n\tAlbum: \t" + existedSong.getAlbum() + "\n\tYear: \t" + existedSong.getYear();
+                Alert alert = new Alert(Alert.AlertType.ERROR, songDetails + "\n" + existedSongDetails, ButtonType.OK);
                 alert.setTitle("Error!");
                 alert.setHeaderText("The song already exists!");
                 alert.initOwner(((Node) e.getSource()).getScene().getWindow());
                 alert.showAndWait();
             }
+            //If the year of entered song is illegal
             else if(year == -1){
                 Alert alert = new Alert(Alert.AlertType.ERROR, songDetails, ButtonType.OK);
                 alert.setTitle("Error!");
@@ -174,6 +178,7 @@ public class SongLibController {
                 alert.initOwner(((Node) e.getSource()).getScene().getWindow());
                 alert.showAndWait();
             }
+            //The user makes a legal change
             else {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION, songDetails, ButtonType.YES, ButtonType.CANCEL);
                 alert.setTitle("Add");
@@ -200,7 +205,7 @@ public class SongLibController {
             String artistName = artistNameTextField.getText();
             String album = albumTextField.getText();
             int year = convertToYearInt(yearTextField.getText());
-            String editedSongDetails = "Revision:\n\tSong Name: \t" + songName + "\n\tArtist Name: \t" + artistName + "\n\tAlbum: \t" + album + "\n\tYear: \t" + (year>0?String.valueOf(year):"");
+            String editedSongDetails = "Revision:\n\tSong Name: \t" + songName + "\n\tArtist Name: \t" + artistName + "\n\tAlbum: \t" + album + "\n\tYear: \t" + yearTextField.getText();
             //If song name or artist name is empty
             if(songNameTextField.getLength()==0 || artistNameTextField.getLength()==0){
                 Alert alert = new Alert(Alert.AlertType.ERROR, songDetails + "\n" + editedSongDetails, ButtonType.OK);
@@ -228,7 +233,7 @@ public class SongLibController {
                     }
                     //If the revised song's year is illegal
                     else if(year == -1){
-                        Alert alert = new Alert(Alert.AlertType.ERROR, songDetails, ButtonType.OK);
+                        Alert alert = new Alert(Alert.AlertType.ERROR, songDetails + "\n" + editedSongDetails, ButtonType.OK);
                         alert.setTitle("Error!");
                         alert.setHeaderText("Please enter year as a positive Integer!");
                         alert.initOwner(((Node) e.getSource()).getScene().getWindow());
@@ -286,6 +291,7 @@ public class SongLibController {
                     listView.getSelectionModel().clearSelection(index);
                     listView.getSelectionModel().select(index);
                 }
+                //Select the
                 else if(index - 1 >=0){
                     listView.getSelectionModel().select(index - 1);
                 }
