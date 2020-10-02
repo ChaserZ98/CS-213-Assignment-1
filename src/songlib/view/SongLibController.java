@@ -35,8 +35,8 @@ public class SongLibController {
 
     private ObservableList<Song> obsList = FXCollections.observableArrayList();
 
-    private static String songDataFilePath = "src/songlib/data/songListData.txt";
-    private static File songDataFile = new File(songDataFilePath);
+    private String songDataFilePath = "src/songlib/data/songListData.txt";
+    private File songDataFile = new File(songDataFilePath);
 
     public void start(Stage mainStage){
         obsList = FXCollections.observableArrayList();
